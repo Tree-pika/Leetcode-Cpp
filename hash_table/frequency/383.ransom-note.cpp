@@ -1,8 +1,8 @@
 /*
- * @lc app=leetcode.cn id=34 lang=cpp
+ * @lc app=leetcode.cn id=383 lang=cpp
  * @lcpr version=30204
  *
- * [34] 在排序数组中查找元素的第一个和最后一个位置
+ * [383] 赎金信
  */
 
 
@@ -27,8 +27,17 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    vector<int> searchRange(vector<int>& nums, int target) {
-        
+    bool canConstruct(string ransomNote, string magazine) {
+        if(ransomNote.size()>magazine.size()) return false;
+        int record[26];
+        for(char c:magazine)
+            record[c-'a']++;
+        for(char c:ransomNote)
+            record[c-'a']--;
+        for(int a:record)
+            if(a<0)
+                return false;
+        return true;
     }
 };
 // @lc code=end
@@ -37,15 +46,15 @@ public:
 
 /*
 // @lcpr case=start
-// [5,7,7,8,8,10]\n8\n
+// "a"\n"b"\n
 // @lcpr case=end
 
 // @lcpr case=start
-// [5,7,7,8,8,10]\n6\n
+// "aa"\n"ab"\n
 // @lcpr case=end
 
 // @lcpr case=start
-// []\n0\n
+// "aa"\n"aab"\n
 // @lcpr case=end
 
  */
