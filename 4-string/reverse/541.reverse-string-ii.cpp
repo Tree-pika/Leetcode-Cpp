@@ -1,8 +1,8 @@
 /*
- * @lc app=leetcode.cn id=202 lang=cpp
+ * @lc app=leetcode.cn id=541 lang=cpp
  * @lcpr version=30204
  *
- * [202] 快乐数
+ * [541] 反转字符串 II
  */
 
 
@@ -23,24 +23,21 @@ using namespace std;
 #include <unordered_set>
 #include <utility>
 #include <vector>
-#include <cmath>
 // @lcpr-template-end
 // @lc code=start
 class Solution {
 public:
-    bool isHappy(int n) {
-        unordered_set<int> res;
-        while(n!=1){
-            int tmp=0;
-            while(n){
-                tmp+=pow(n%10,2);
-                n/=10;
-            }
-            n = tmp;
-            if(!res.insert(n).second)//插入失败代表直接存过相同的值
-                return false;//题目提示会无限循环
+    string reverseStr(string s, int k) {
+        int n = s.size();
+        int cnt=0;//偏移量
+        while(n>k){
+            //反转2k中的前k个字符
+            reverse(s.begin()+cnt,s.begin()+cnt+k);//reverse翻转[begin,end)
+            cnt+=2*k;
+            n-=2*k;
         }
-        return true;
+        if(n>0) reverse(s.begin()+cnt,s.end());//剩余字符少于k个
+        return s;
     }
 };
 // @lc code=end
@@ -49,11 +46,11 @@ public:
 
 /*
 // @lcpr case=start
-// 19\n
+// "abcdefg"\n2\n
 // @lcpr case=end
 
 // @lcpr case=start
-// 2\n
+// "abcd"\n2\n
 // @lcpr case=end
 
  */

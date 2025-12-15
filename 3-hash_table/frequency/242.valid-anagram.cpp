@@ -55,16 +55,25 @@ public:
     //     return true;
     // }
 /*method2:using array*/
+    // bool isAnagram(string s, string t) {
+    //     int freq[26]={0};//仅包含小写字母
+    //     for(char c:s)
+    //         freq[c-'a']++;
+    //     for(char c:t)
+    //         freq[c-'a']--;
+    //     for(int a:freq)
+    //         if(a!=0)
+    //             return false;
+    //     return true;
+    // }
+/*method3:using sort and compare*/
     bool isAnagram(string s, string t) {
-        int freq[26]={0};//仅包含小写字母
-        for(char c:s)
-            freq[c-'a']++;
-        for(char c:t)
-            freq[c-'a']--;
-        for(int a:freq)
-            if(a!=0)
-                return false;
-        return true;
+        if(s.length()!=t.length()) return false;
+        ranges::sort(s);
+        ranges::sort(t);
+        if(s==t) return true;
+        return false;
+
     }
 };
 // @lc code=end

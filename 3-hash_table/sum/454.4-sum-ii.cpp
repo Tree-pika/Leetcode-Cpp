@@ -1,8 +1,8 @@
 /*
- * @lc app=leetcode.cn id=202 lang=cpp
+ * @lc app=leetcode.cn id=454 lang=cpp
  * @lcpr version=30204
  *
- * [202] 快乐数
+ * [454] 四数相加 II
  */
 
 
@@ -23,24 +23,26 @@ using namespace std;
 #include <unordered_set>
 #include <utility>
 #include <vector>
-#include <cmath>
 // @lcpr-template-end
 // @lc code=start
 class Solution {
 public:
-    bool isHappy(int n) {
-        unordered_set<int> res;
-        while(n!=1){
-            int tmp=0;
-            while(n){
-                tmp+=pow(n%10,2);
-                n/=10;
+    int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4) {
+        unordered_map<int,int> maps;
+        for(int a:nums1){
+            for(int b:nums2){
+                maps[a+b]++;
             }
-            n = tmp;
-            if(!res.insert(n).second)//插入失败代表直接存过相同的值
-                return false;//题目提示会无限循环
         }
-        return true;
+        int ans = 0;
+        for(int c:nums3){
+            for(int d:nums4){
+                if(maps.count(-c-d)){
+                    ans+=maps[-c-d];
+                }
+            }
+        }
+        return ans;
     }
 };
 // @lc code=end
@@ -49,11 +51,11 @@ public:
 
 /*
 // @lcpr case=start
-// 19\n
+// [1,2]\n[-2,-1]\n[-1,2]\n[0,2]\n
 // @lcpr case=end
 
 // @lcpr case=start
-// 2\n
+// [0]\n[0]\n[0]\n[0]\n
 // @lcpr case=end
 
  */
