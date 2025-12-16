@@ -38,15 +38,62 @@ using namespace std;
  */
 class Solution {
 public:
-    void traversal(TreeNode *cur,vector<int>& vec){
-        if(cur==nullptr) return;
-        vec.push_back(cur->val);
-        traversal(cur->left,vec);
-        traversal(cur->right,vec);
-    }
+    // void traversal(TreeNode *cur,vector<int>& vec){
+    //     if(cur==nullptr) return;
+    //     vec.push_back(cur->val);
+    //     traversal(cur->left,vec);
+    //     traversal(cur->right,vec);
+    // }
+    // vector<int> preorderTraversal(TreeNode* root) {
+    //     vector<int> res;
+    //     traversal(root,res);
+    //     return res;
+    // }
+/*solution2：using iteration*/
+    // vector<int> preorderTraversal(TreeNode* root) {
+    //     vector<int> res;
+    //     stack<TreeNode*> st;
+    //     if(root==nullptr) return res;
+    //     st.push(root);
+    //     while(!st.empty()){
+    //         TreeNode *cur = st.top();
+    //         st.pop();
+    //         res.push_back(cur->val);
+    //         if(cur->right) st.push(cur->right);
+    //         if(cur->left) st.push(cur->left);
+    //     }
+    //     return res;
+    // }
+/*solution3:Morris*/
     vector<int> preorderTraversal(TreeNode* root) {
         vector<int> res;
-        traversal(root,res);
+        TreeNode *cur = root;
+        while(cur){
+            //1.没有左孩子，直接保存当前节点，并访问右孩子
+            if(cur->left==nullptr){
+                res.push_back(cur->val);
+                cur = cur->right;
+            }else{
+            //2.有左孩子
+                //先找到本节点的前驱节点
+                TreeNode *mostRight = cur->left;
+                while(mostRight->right&&mostRight->right!=cur){
+                    mostRight = mostRight->right;
+                }
+                //2.1说明此时还没有建立线索，左子树还没遍历
+                //先打印root即cur
+                if(mostRight->right==nullptr){
+                    mostRight->right = cur;
+                    res.push_back(cur->val);
+                    cur = cur->left;
+                }else{
+                //2.2线索已经建立，此时代表左子树已经处理完毕
+                //拆桥，然后转向处理右子树
+                    mostRight->right = nullptr;
+                    cur = cur->right;
+                }
+            }
+        }
         return res;
     }
 };
