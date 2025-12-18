@@ -38,14 +38,15 @@ using namespace std;
  */
 class Solution {
 public:
+    /*solution1:using BFS with iterations*/
     // vector<vector<int>> levelOrder(TreeNode* root) {
     //     vector<vector<int>> res;
     //     queue<TreeNode*> que;
-    //     if(root) que.push(root);
+    //     if(root) que.push(root);//避免压栈空节点进入循环触发空指针解引用nullptr->val
     //     while(!que.empty()){
     //         //提前获取本层的大小，因为后期遍历本层时需要将下一层的子节点push到queue中
     //         //即queue的大小后期会变化
-    //         //或者int i = que.size();i--也可以
+    //         //或者int i = que.size()-1;i--也可以
     //         int size = que.size();
     //         vector<int> tmp;
     //         for(int i=0;i<size;i++){
@@ -59,7 +60,7 @@ public:
     //     }
     //     return res;
     // }
-    /*solution2:using DFS*/
+    /*solution2:using DFS with recursion*/
     void dfs(TreeNode *node,vector<vector<int>>& res,int level){
         if(node==nullptr) return;
         //第一次到达本层
