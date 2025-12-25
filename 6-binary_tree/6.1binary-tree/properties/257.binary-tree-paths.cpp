@@ -39,7 +39,7 @@ using namespace std;
 class Solution {
 public:
     // void traversal(TreeNode *node,vector<int>&path,vector<string>&res){
-    //     path.push_back(node->val);//leaf node或者是middle都是root，最先处理
+    //     path.push_back(node->val);//leaf node或者是middle node都是root，最先处理
     //     //终止条件：函数弹栈开始时
     //     if(!node->left&&!node->right){
     //         string tmp;
