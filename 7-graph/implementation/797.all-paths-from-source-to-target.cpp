@@ -33,24 +33,28 @@ private:
 public:
     void dfs(vector<vector<int>>& graph,int src,int dest){
         
-        path.push_back(src);//先添加本节点到路径中
+        path.push_back(src);//先添加本节点到路径中；1. 进门
 
-        //终止条件：若路径最后一个节点等于dest目标节点，说明路径找到了
+        //终止条件：若路径最后一个节点等于dest目标节点，说明路径找到了；2a. 结算
         if(src==dest){
             res.push_back(path);
-            path.pop_back();
+            path.pop_back();//回溯
             return;
-        }
-        
-        for(int s:graph[src]){
-            dfs(graph,s,dest);
+        }else{//2b.找邻居
+            for(int s:graph[src]){
+                dfs(graph,s,dest);
+            }
         }
 
-        path.pop_back();//回溯：撤销掉本节点，继续找别的路
+        path.pop_back();//回溯：撤销掉本层递归节点，继续找别的路；3.出门
     }
     vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
         dfs(graph,0,graph.size()-1);
         return res;
+    }
+/*soluiton2:using BFS*/
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        
     }
 };
 // @lc code=end

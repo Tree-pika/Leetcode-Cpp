@@ -32,6 +32,7 @@ public:
     void addEdge(int from, int to, int weight) {
         graph[from].emplace_back(to, weight);
         // graph[from].push_back({to,weight});
+        // graph[from].push_back(Edge(to,weight));
     }
 
     // 删，删除一条有向边，复杂度 O(V)
