@@ -38,6 +38,7 @@ using namespace std;
  */
 class Solution {
 public:
+/*solution1：遍历的思路，+recursion*/
     // void traversal(TreeNode *cur,vector<int>& vec){
     //     if(cur==nullptr) return;
     //     vec.push_back(cur->val);
@@ -49,7 +50,7 @@ public:
     //     traversal(root,res);
     //     return res;
     // }
-/*solution2：using iteration*/
+/*solution2：遍历的思路，+iteration*/
     // vector<int> preorderTraversal(TreeNode* root) {
     //     vector<int> res;
     //     stack<TreeNode*> st;
@@ -64,38 +65,49 @@ public:
     //     }
     //     return res;
     // }
-/*solution3:Morris*/
+/*solution1-2：分解问题的思路，+recursion*/
     vector<int> preorderTraversal(TreeNode* root) {
+        if(root==nullptr) return {};
         vector<int> res;
-        TreeNode *cur = root;
-        while(cur){
-            //1.没有左孩子，直接保存当前节点，并访问右孩子
-            if(cur->left==nullptr){
-                res.push_back(cur->val);
-                cur = cur->right;
-            }else{
-            //2.有左孩子
-                //先找到本节点的前驱节点
-                TreeNode *mostRight = cur->left;
-                while(mostRight->right&&mostRight->right!=cur){
-                    mostRight = mostRight->right;
-                }
-                //2.1说明此时还没有建立线索，左子树还没遍历
-                //先打印root即cur
-                if(mostRight->right==nullptr){
-                    mostRight->right = cur;
-                    res.push_back(cur->val);
-                    cur = cur->left;
-                }else{
-                //2.2线索已经建立，此时代表左子树已经处理完毕
-                //拆桥，然后转向处理右子树
-                    mostRight->right = nullptr;
-                    cur = cur->right;
-                }
-            }
-        }
+        res.push_back(root->val);
+        vector<int> left = preorderTraversal(root->left);
+        res.insert(res.end(),left.begin(),left.end());
+        vector<int> right = preorderTraversal(root->right);
+        res.insert(res.end(),right.begin(),right.end());
         return res;
     }
+/*solution3:Morris*/
+    // vector<int> preorderTraversal(TreeNode* root) {
+    //     vector<int> res;
+    //     TreeNode *cur = root;
+    //     while(cur){
+    //         //1.没有左孩子，直接保存当前节点，并访问右孩子
+    //         if(cur->left==nullptr){
+    //             res.push_back(cur->val);
+    //             cur = cur->right;
+    //         }else{
+    //         //2.有左孩子
+    //             //先找到本节点的前驱节点
+    //             TreeNode *mostRight = cur->left;
+    //             while(mostRight->right&&mostRight->right!=cur){
+    //                 mostRight = mostRight->right;
+    //             }
+    //             //2.1说明此时还没有建立线索，左子树还没遍历
+    //             //先打印root即cur
+    //             if(mostRight->right==nullptr){
+    //                 mostRight->right = cur;
+    //                 res.push_back(cur->val);
+    //                 cur = cur->left;
+    //             }else{
+    //             //2.2线索已经建立，此时代表左子树已经处理完毕
+    //             //拆桥，然后转向处理右子树
+    //                 mostRight->right = nullptr;
+    //                 cur = cur->right;
+    //             }
+    //         }
+    //     }
+    //     return res;
+    // }
 };
 // @lc code=end
 
