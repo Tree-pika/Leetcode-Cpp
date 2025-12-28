@@ -95,7 +95,7 @@ public:
         while(!que.empty()){
             int cur = que.front();
             que.pop();
-            count++;
+            count++;//出队的时候，统一记录访问过的元素
             for(int neighbors:graph[cur]){
                 indegree[neighbors]--;
                 if(indegree[neighbors]==0){

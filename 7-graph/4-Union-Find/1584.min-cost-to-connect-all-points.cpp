@@ -82,11 +82,10 @@ public:
             if(uf.connected(e[0],e[1])){
                 continue;
             }
-            //
             uf.unionNodes(e[0],e[1]);
             cnt++;
             minCost+=e[2];
-            if(cnt==n-1) break;
+            if(cnt==n-1) break;//已经全部连上了，没有找下去的必要了
         }
         return minCost;
     }

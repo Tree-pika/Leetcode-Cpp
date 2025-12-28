@@ -38,36 +38,36 @@ using namespace std;
  */
 class Solution {
 public:
-    // void traversal(TreeNode *node,vector<int>&path,vector<string>&res){
-    //     path.push_back(node->val);//leaf node或者是middle node都是root，最先处理
-    //     //终止条件：函数弹栈开始时
-    //     if(!node->left&&!node->right){
-    //         string tmp;
-    //         for(int i=0;i<path.size()-1;i++){
-    //             tmp+=to_string(path[i]);
-    //             tmp+="->";
-    //         }
-    //         tmp+=to_string(path.back());
-    //         res.push_back(tmp);
-    //         return;
-    //     }
-    //     //普通的单层递归逻辑
-    //     if(node->left){//left
-    //         traversal(node->left,path,res);
-    //         path.pop_back();//单层实际添加到路径中的就一个middle node，所以递归回来只需要pop一次即可
-    //     }
-    //     if(node->right){//right
-    //         traversal(node->right,path,res);
-    //         path.pop_back();
-    //     }
-    //     path.pop_back();
-    // }
-    // vector<string> binaryTreePaths(TreeNode* root) {
-    //     vector<int> path;
-    //     vector<string> res;
-    //     traversal(root,path,res);
-    //     return res;
-    // }
+    void traversal(TreeNode *node,vector<int>&path,vector<string>&res){
+        path.push_back(node->val);//leaf node或者是middle node都是root，最先处理
+        //终止条件：函数弹栈开始时
+        if(!node->left&&!node->right){
+            string tmp;
+            for(int i=0;i<path.size()-1;i++){
+                tmp+=to_string(path[i]);
+                tmp+="->";
+            }
+            tmp+=to_string(path.back());
+            res.push_back(tmp);
+            return;
+        }
+        //普通的单层递归逻辑
+        if(node->left){//left
+            traversal(node->left,path,res);
+            path.pop_back();//单层实际添加到路径中的就一个middle node，所以递归回来只需要pop一次即可
+        }
+        if(node->right){//right
+            traversal(node->right,path,res);
+            path.pop_back();
+        }
+        path.pop_back();
+    }
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<int> path;
+        vector<string> res;
+        traversal(root,path,res);
+        return res;
+    }
 /*solution1-2:类比797，统一在本层回溯*/
     // void traversal(TreeNode *node,vector<int>&path,vector<string>&res){
     //     path.push_back(node->val);//leaf node或者是middle node都是root，最先处理

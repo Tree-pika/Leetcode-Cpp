@@ -38,7 +38,7 @@ public:
         //终止条件：若路径最后一个节点等于dest目标节点，说明路径找到了；2a. 结算
         if(src==dest){
             res.push_back(path);
-            path.pop_back();//回溯
+            path.pop_back();//回溯：撤销掉本层递归节点
             return;
         }else{//2b.找邻居
             for(int s:graph[src]){
@@ -53,9 +53,9 @@ public:
         return res;
     }
 /*soluiton2:using BFS*/
-    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+    // vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
         
-    }
+    // }
 };
 // @lc code=end
 

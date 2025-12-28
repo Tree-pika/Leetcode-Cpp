@@ -183,7 +183,7 @@ void traverseEdges(const Graph& graph, int s, std::vector<std::vector<bool>>& vi
       std::cout << "visit " << cur << std::endl;
 
       for(const Edge& e:graph.neighbors(cur)){
-        if(visited[e.io]){
+        if(visited[e.to]){
           continue;
         }
         visited[e.to] = true;
@@ -193,7 +193,7 @@ void traverseEdges(const Graph& graph, int s, std::vector<std::vector<bool>>& vi
   }
   ```
 * 再访问本节点的边，从而访问邻居节点的时候，确保邻居节点之前没有被访问过，再加入到队列中
-* 然后加入节点进入队列后，立马给其visited设为true，所以队列中都是可以访问但是已经访问标记已经被设置为已访问的节点
+* 然后加入节点进入队列后，立马给其visited设为true，所以队列中都是可以访问但是访问标记已经被设置为已访问的节点
 * 写法二：记录遍历步数
 * 
   ```cpp
@@ -314,4 +314,4 @@ void traverseEdges(const Graph& graph, int s, std::vector<std::vector<bool>>& vi
 | **谁负责清理现场**       | **自己负责** “我进来了，我走了，把自己删掉”                  | **父节点负责** “刚才把孩子送进去了，孩子回来了，我把孩子删掉” | **自己负责** “我进来了，我走了，把自己删掉”                  |
 | **代码结构特征**         | **对称闭环** `push` 和 `pop` 在同一缩进层级                  | **三明治结构** `push`... `recurse`... `pop`                  | **对称闭环** `push` 和 `pop` 在同一缩进层级                  |
 | **对 `return` 的容忍度** | **低** 中间随意 `return` 会导致没运行到 `pop`                | **高** 子函数随便 `return`，父节点保证清理                   | **低** 必须小心控制流，不能跳过底部的 `pop`                  |
-| **典型伪代码**           | `cpp void dfs(u){ path.push(u); for(v:adj) dfs(v); path.pop(); } ` | `cpp void dfs(root){ path.push(root); if(L) {dfs(L); pop();} if(R) {dfs(R); pop();} } ` | `cpp void dfs(root){ path.push(root); if(Leaf) record(); else {dfs(L); dfs(R);} path.pop(); } ` |
+| **典型伪代码**           | `cpp void dfs(u){ path.push(u); for(v:adj) dfs(v); path.pop(); } ` | `cpp void dfs(root){ path.push(root); if(L) {dfs(L); pop();} if(R) {dfs(R); pop();} path.pop();} ` | `cpp void dfs(root){ path.push(root); if(Leaf) record(); else {dfs(L); dfs(R);} path.pop(); } ` |
