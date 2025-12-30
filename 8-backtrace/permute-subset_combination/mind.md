@@ -37,7 +37,7 @@
     for(int i=start;i<nums.size();i++){
       //做选择
       track.push_back(nums[i]);
-      backtrack(nums,i+1);
+      backtrack(nums,i+1);//用start控制下一层的选择列表
       // 撤销选择
       track.pop_back();
     }
@@ -62,8 +62,8 @@
       track.push_back(nums[i]);
       backtrack(nums);
       //撤销选择
-      track.pop_back();
-      used[i] = false;
+      track.pop_back();//从路径中移除选择
+      used[i] = false;//将选择再次加入选择列表
     }
   }
   ```
@@ -148,4 +148,26 @@
       track.pop_back();
     }
   }
+  ```
+# 实际问题转化
+* 所有的回溯题目本质上都是在遍历一棵决策树。
+  * 决策树建模：想清楚怎么定义选择列表和路径
+  * 结束条件`base case`一般比较简单
+* 牢记下面代码框架即可，套框架应该套下面的，而不是上面的排列/组合/子集的框架(因为这个不具有普适性，本质上也是又下面的框架转化而来)
+  * 回溯算法的代码框架：
+  ```python
+  result = []
+  def backtrack(路径, 选择列表):
+      if 满足结束条件:
+          result.add(路径)
+          return
+      
+      for 选择 in 选择列表:
+        # 做选择：前序位置
+        将该选择从选择列表移除
+        路径.add(选择)
+        backtrack(路径, 选择列表)
+        # 撤销选择：后序位置
+        路径.remove(选择)
+        将该选择再加入选择列表
   ```
