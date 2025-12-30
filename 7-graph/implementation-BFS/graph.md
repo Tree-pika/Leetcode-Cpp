@@ -106,10 +106,11 @@ void traverseEdges(const Graph& graph, int s, std::vector<std::vector<bool>>& vi
       if (visited[s][e.to]) {
         continue;
       }
-      // 标记并访问边
+      // 前序位置：标记并访问边
       visited[s][e.to] = true;
       std::cout << "visit edge: " << s << " -> " << e.to << std::endl;
       traverseEdges(graph, e.to, visited);
+      //后序位置
     }
 }
 ```
@@ -174,8 +175,8 @@ void traverseEdges(const Graph& graph, int s, std::vector<std::vector<bool>>& vi
   void bfs(const Graph& graph, int s) {
     vector<bool> visited(graph.size(),false);
     queue<int> que;
-    que.push(s);
     visited[s] = true;
+    que.push(s);
 
     while(!que.empty()){
       int cur = que.front();
@@ -193,7 +194,7 @@ void traverseEdges(const Graph& graph, int s, std::vector<std::vector<bool>>& vi
   }
   ```
 * 再访问本节点的边，从而访问邻居节点的时候，确保邻居节点之前没有被访问过，再加入到队列中
-* 然后加入节点进入队列后，立马给其visited设为true，所以队列中都是可以访问但是访问标记已经被设置为已访问的节点
+* 然后加入节点进入队列前，先给其visited设为true，所以队列中都是可以访问但是访问标记已经被设置为已访问的节点
 * 写法二：记录遍历步数
 * 
   ```cpp
@@ -209,7 +210,7 @@ void traverseEdges(const Graph& graph, int s, std::vector<std::vector<bool>>& vi
       for(int i=que.size()-1;i>=0;i--){
         int cur = que.front();
         que.pop();
-        visited[cur] = true;
+        cout << "visit " << cur << " at step " << step << endl;
         for(const Edge&e:graph.neighbors(cur)){
           if(visited[e.to]){
             continue;
