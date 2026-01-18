@@ -46,55 +46,55 @@ public:
     //     return ans;
     // }
 /*定长滑动窗口+hash using array*/
-    // vector<int> findAnagrams(string s, string p) {
-    //     vector<int> ans,cnt(26,0);
-    //     int s1 = s.size(),s2 = p.size();
-    //     if(s2>s1) return {};
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> ans,cnt(26,0);
+        int s1 = s.size(),s2 = p.size();
+        if(s2>s1) return {};
 
-    //     for(char &c:p) cnt[c-'a']--;//需求
-    //     for(int i=0;i<s2;i++) cnt[s[i]-'a']++;//初始窗口
-    //     int match = 0;
-    //     for(int &a:cnt) 
-    //         if(a==0) match++;
-    //     if(match==26) //如果cnt中每个值都为0，说明子串是同位词，此时match=26
-    //         ans.emplace_back(0);
-    //     int left = 0;
-    //     /*left和right同时往右滑动一格，直到right滑到字符串结尾*/
-    //     for(int right = s2;right<s1;right++){
-    //         //右边进
-    //         cnt[s[right]-'a']++;
-    //         if(cnt[s[right]-'a']==0) match++;
-    //         else if(cnt[s[right]-'a']==1) match--;//说明之前是0(是符合条件的)，+1后变为1
-    //         //左边出
-    //         cnt[s[left]-'a']--;
-    //         if(cnt[s[left]-'a']==0) match++;
-    //         else if(cnt[s[left]-'a']==-1) match--;//说明之前是0，-1后变为-1
-    //         left++;
-    //         if(match==26)
-    //             ans.emplace_back(left);
-    //     }
-    //     return ans;
+        for(char &c:p) cnt[c-'a']--;//需求
+        for(int i=0;i<s2;i++) cnt[s[i]-'a']++;//初始窗口
+        int match = 0;
+        for(int &a:cnt) 
+            if(a==0) match++;
+        if(match==26) //如果cnt中每个值都为0，说明子串是同位词，此时match=26
+            ans.emplace_back(0);
+        int left = 0;
+        /*left和right同时往右滑动一格，直到right滑到字符串结尾*/
+        for(int right = s2;right<s1;right++){
+            //右边进
+            cnt[s[right]-'a']++;
+            if(cnt[s[right]-'a']==0) match++;
+            else if(cnt[s[right]-'a']==1) match--;//说明之前是0(是符合条件的)，+1后变为1
+            //左边出
+            cnt[s[left]-'a']--;
+            if(cnt[s[left]-'a']==0) match++;
+            else if(cnt[s[left]-'a']==-1) match--;//说明之前是0，-1后变为-1
+            left++;
+            if(match==26)
+                ans.emplace_back(left);
+        }
+        return ans;
        
-    // }
+    }
 /*定长滑动窗口*/
-    // vector<int> findAnagrams(string s, string p) {
-    //     vector<int> ans;
-    //     /*不用每次去检查26个字母是否都一致(之前开一个数组只能这样)，
-    //     最后直接比较整个数组是否相等即可*/
-    //     array<int,26> cnt_p;//p中字符映射的数量数组
-    //     array<int,26> cnt_s;//子串组成的字符映射的数量数组
-    //     for(char c:p) cnt_p[c-'a']++;
-    //     for(int right = 0;right<s.size();right++){
-    //         cnt_s[s[right]-'a']++;
-    //         int  left = right-p.size()+1;
-    //         if(left<0)
-    //             continue;
-    //         if(cnt_p==cnt_s)
-    //             ans.emplace_back(left);
-    //         cnt_s[s[left]-'a']--;
-    //     }
-    //     return ans;
-    // }
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> ans;
+        /*不用每次去检查26个字母是否都一致(之前开一个数组只能这样)，
+        最后直接比较整个数组是否相等即可*/
+        array<int,26> cnt_p;//p中字符映射的数量数组
+        array<int,26> cnt_s;//子串组成的字符映射的数量数组
+        for(char c:p) cnt_p[c-'a']++;
+        for(int right = 0;right<s.size();right++){
+            cnt_s[s[right]-'a']++;
+            int  left = right-p.size()+1;
+            if(left<0)
+                continue;
+            if(cnt_p==cnt_s)
+                ans.emplace_back(left);
+            cnt_s[s[left]-'a']--;
+        }
+        return ans;
+    }
 /*不定长滑窗*/
 };
 // @lc code=end
