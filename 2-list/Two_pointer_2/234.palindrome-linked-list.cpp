@@ -37,6 +37,7 @@ using namespace std;
  */
 class Solution {
 public:
+//对撞左右指针：left < right
     // bool isPalindrome(ListNode* head) {
     //     vector<ListNode*> vec;
     //     ListNode*cur = head;

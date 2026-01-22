@@ -1,0 +1,86 @@
+/*
+ * @lc app=leetcode.cn id=107 lang=cpp
+ * @lcpr version=30204
+ *
+ * [107] 二叉树的层序遍历 II
+ */
+
+
+// @lcpr-template-start
+using namespace std;
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <climits>
+#include <deque>
+#include <functional>
+#include <iostream>
+#include <list>
+#include <queue>
+#include <stack>
+#include <tuple>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+// @lcpr-template-end
+// @lc code=start
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    //遍历思路
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        queue<TreeNode*> que;
+        if(root) que.push(root);
+        // stack<vector<int>> st;
+        vector<vector<int>> res;
+        while(!que.empty()){
+            vector<int> tmp;
+            for(int i=que.size()-1;i>=0;i--){
+                TreeNode*t=que.front();
+                que.pop();
+                tmp.push_back(t->val);
+                if(t->left) que.push(t->left);
+                if(t->right) que.push(t->right);
+            }
+            // st.push(tmp);
+            res.push_back(tmp);
+        }
+        
+        // while(!st.empty()){
+        //     res.push_back(st.top());
+        //     st.pop();
+        // }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};
+// @lc code=end
+
+
+
+/*
+// @lcpr case=start
+// [3,9,20,null,null,15,7]\n
+// @lcpr case=end
+
+// @lcpr case=start
+// [1]\n
+// @lcpr case=end
+
+// @lcpr case=start
+// []\n
+// @lcpr case=end
+
+ */
+

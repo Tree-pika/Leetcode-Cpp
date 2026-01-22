@@ -1,8 +1,8 @@
 /*
- * @lc app=leetcode.cn id=26 lang=cpp
+ * @lc app=leetcode.cn id=80 lang=cpp
  * @lcpr version=30204
  *
- * [26] 删除有序数组中的重复项
+ * [80] 删除有序数组中的重复项 II
  */
 
 
@@ -28,22 +28,28 @@ using namespace std;
 class Solution {
 public:
     // int removeDuplicates(vector<int>& nums) {
-    //     int slow = 0,fast = 1;//nums[0]肯定在结果中
-    //     //将所有不重复的值都*赋值*给nums[slow]，这样也方便后续的比较
+    //     int slow=0,fast=1;
     //     while(fast<nums.size()){
-    //         if(nums[slow]!=nums[fast]){
-    //             slow++; 
+    //         if(nums[fast]!=nums[slow]){
+    //             slow++;
     //             nums[slow] = nums[fast];
+    //             fast++;
+    //         }else{//给的第二次机会，此时已经是第二次出现的元素了(slow和fast指向的元素值一样)
+    //             slow++;
+    //             nums[slow] = nums[fast];
+    //             fast++;
+    //             while(fast<nums.size()&&nums[fast]==nums[slow]){
+    //                 fast++;
+    //             }
     //         }
-    //         fast++;
     //     }
-    //     // nums[0..slow] 无重复元素
     //     return slow+1;
     // }
     int removeDuplicates(vector<int>& nums) {
-        int slow=1,fast=1;
+        if(nums.size()<=2) return nums.size();
+        int slow=2,fast=2;
         for(;fast<nums.size();fast++){
-            if(nums[fast]!=nums[slow-1]){
+            if(nums[fast]!=nums[slow-2]){
                 nums[slow] = nums[fast];
                 slow++;
             }
@@ -57,11 +63,11 @@ public:
 
 /*
 // @lcpr case=start
-// [1,1,2]\n
+// [1,1,1,2,2,3]\n
 // @lcpr case=end
 
 // @lcpr case=start
-// [0,0,1,1,1,2,2,3,3,4]\n
+// [0,0,1,1,1,1,2,3,3]\n
 // @lcpr case=end
 
  */
